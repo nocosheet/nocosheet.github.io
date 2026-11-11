@@ -1,0 +1,96 @@
+<header>
+  <div class="bar">
+    <a href="/" class="brand">
+      <svg viewBox="0 0 32 32" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="4" y="4" width="24" height="24" rx="6" />
+        <path d="M4 13h24M14 13v15" />
+      </svg>
+      nocosheet
+    </a>
+    <div class="actions">
+      <a href="https://github.com/nocosheet/nocosheet" rel="noopener">GitHub</a>
+      <button type="button" id="theme" aria-label="Toggle theme">
+        <svg class="sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.getElementById("theme")?.addEventListener("click", () => {
+    const root = document.documentElement;
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
+  });
+</script>
+
+<style>
+  header {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 30;
+    pointer-events: none;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+    padding-inline: 2rem;
+  }
+  .bar > * {
+    pointer-events: auto;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+  .actions a:hover,
+  button:hover {
+    color: var(--fg);
+  }
+  button {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    border-radius: var(--radius);
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .moon {
+    display: none;
+  }
+  :global(:root[data-theme="dark"]) .sun {
+    display: none;
+  }
+  :global(:root[data-theme="dark"]) .moon {
+    display: block;
+  }
+  @media (max-width: 48rem) {
+    .bar {
+      padding-inline: 0.75rem;
+    }
+  }
+</style>
