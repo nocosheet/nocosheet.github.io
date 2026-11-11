@@ -28,7 +28,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9 # remove this line if package.json has a "packageManager" field
+          version: 10
 
       - name: Setup Node
         uses: actions/setup-node@v4
