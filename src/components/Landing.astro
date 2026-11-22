@@ -2,21 +2,19 @@
 const repo = "https://github.com/nocosheet/nocosheet";
 
 const items = [
-  { id: "grid", fx: "35%", label: "Grid", title: "A spreadsheet you can build on.", body: "Browse and edit records in a fast, familiar grid.", alt: "The record grid showing a table of tasks" },
+  { id: "grid", fx: "35%", label: "Grid", title: "A spreadsheet you can build on.", body: "Search, filter, sort and edit records inline in a fast, familiar grid. It works offline too, and changes sync when you reconnect.", alt: "The record grid showing a table of tasks" },
   { id: "schema", fx: "62%", label: "Data modeling", title: "Model your data without code.", body: "Create tables and fields from the UI with a guided wizard. Schema changes apply live.", alt: "A table's fields and their types" },
   { id: "table-new", fx: "58%", label: "New table", title: "Start a table in seconds.", body: "Name it, group it and pick how records are identified, then define its columns.", alt: "The new table form" },
-  { id: "import", fx: "75%", label: "Import", title: "Bring your data in.", body: "Upload or paste a CSV, match its columns to your fields and preview the records before anything is added.", alt: "The import records sheet previewing a CSV before it is imported" },
-  { id: "view-new", fx: "50%", label: "Views", title: "Save a view of your data.", body: "Pick the columns to show and the filters records must match, then share it as its own grid.", alt: "The create a view dialog" },
-  { id: "forms", fx: "50%", label: "Forms", title: "Collect records with a form.", body: "Pick the columns a form asks for and let members fill it in. Every response becomes a record.", alt: "The create a form dialog" },
-  { id: "form-fill", fx: "50%", label: "Forms", title: "Share it with your team.", body: "Members open the form from the table, fill it in and submit. Every response becomes a new record.", alt: "A filled-in form ready to submit" },
+  { id: "import", fx: "75%", label: "Import and export", title: "Bring your data in.", body: "Upload or paste a CSV, match its columns to your fields and preview the records before anything is added. Export any table or view back to CSV.", alt: "The import records sheet previewing a CSV before it is imported" },
+  { id: "view-new", fx: "50%", label: "Views", title: "Save a view of your data.", body: "Pick the columns to show and the filters records must match, then save it as its own grid.", alt: "The create a view dialog" },
   { id: "record", fx: "100%", label: "Fields", title: "Fields that fit your data.", body: "Select and multi-select, dates, currency, attachments and computed fields.", alt: "A record open for editing" },
   { id: "assets", fx: "30%", label: "Files", title: "Files, right on the record.", body: "Attach and manage files on any record, and see them in the grid.", alt: "A table of brand assets with file previews" },
   { id: "access", fx: "62%", label: "Access", title: "Decide who can do what.", body: "Access profiles with workspace and per-table grants, own or all record scopes, and an admin above all.", alt: "Access profiles and their grants" },
   { id: "audit", fx: "55%", label: "Audit log", title: "Know who changed what.", body: "Turn on auditing per table and every record created, edited or deleted is logged with who did it and when. Entries are kept for 30 days.", alt: "The audit log listing record changes by member" },
-  { id: "api-keys", fx: "62%", label: "API", title: "Build on your data.", body: "Create API keys or sign in with a bearer token to read and write records from your own scripts and apps.", alt: "API keys and how to call the workspace API" },
-  { id: "trash", fx: "58%", label: "Trash", title: "Deleted by mistake? Restore it.", body: "Deleted tables and views stay in the trash for 30 days before they are gone for good.", alt: "Deleted tables in the trash with restore actions" },
+  { id: "trash", fx: "58%", label: "Trash", title: "Deleted by mistake? Restore it.", body: "Deleted tables, columns and records stay in the trash for 30 days before they are gone for good.", alt: "Deleted tables in the trash with restore actions" },
   { id: "home", fx: "56%", label: "Workspace", title: "Everything in one workspace.", body: "Invite members, pin your favorite tables and pick up where you left off.", alt: "The workspace home" },
-  { id: "account", fx: "50%", label: "Account", title: "Secure by default.", body: "Sign in with a password or passkey, add an authenticator app and manage your sessions.", alt: "Account security settings" },
+  { id: "templates", fx: "50%", label: "Templates", title: "Start from a template.", body: "Pick a ready-made workspace like a help desk, hiring pipeline or online store, and get its tables, views and sample data in one click.", alt: "The template gallery on an empty workspace" },
+  { id: "account", fx: "50%", label: "Account", title: "Secure by default.", body: "Sign in with a password, passkey or Google, add an authenticator app and manage your sessions.", alt: "Account security settings" },
 ];
 
 const headline = "A no-code database that feels like a spreadsheet.".split(" ");
@@ -26,13 +24,19 @@ const stack = [
   ["D1", "Stores your tables and records"],
   ["R2", "Stores your files"],
 ];
+
+const extras = [
+  ["Offline-first", "Data lives in your browser. Create, edit and delete records offline, and changes sync when you reconnect."],
+  ["Installable", "Install it as an app. It opens even without a connection."],
+  ["Templates", "Start from ready-made bases like a CRM, hiring pipeline, online store or event plan."],
+];
 ---
 
 <section class="journey" id="top" style={`--n:${items.length}`}>
   <div class="pin">
     <div class="copy">
       <h1 aria-label={headline.join(" ")}>{headline.map((w, i) => <span class="w" aria-hidden="true" style={`--i:${i}`}>{w}</span>)}</h1>
-      <p>Model your data, manage records and control who can see what. Open source, on your own Cloudflare account.</p>
+      <p>Model your data, manage records, work offline and control who can see what. Open source, on your own Cloudflare account.</p>
       <div class="actions">
         <a class="btn btn-primary" href={repo} rel="noopener">Get started</a>
         <a class="btn" href="#tour" data-tour>Take a tour</a>
@@ -74,6 +78,11 @@ const stack = [
     <p>nocosheet runs entirely on Cloudflare. No external services, nothing else to host.</p>
     <ul>
       {stack.map(([name, note]) => (
+        <li><strong>{name}</strong><span>{note}</span></li>
+      ))}
+    </ul>
+    <ul>
+      {extras.map(([name, note]) => (
         <li><strong>{name}</strong><span>{note}</span></li>
       ))}
     </ul>
@@ -488,6 +497,9 @@ const stack = [
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  ul:first-of-type {
     margin-top: 3rem;
   }
   li {
@@ -495,6 +507,7 @@ const stack = [
     flex-direction: column;
     gap: 0.15rem;
     min-width: 12.5rem;
+    max-width: 18rem;
     padding: 1.1rem 1.4rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);
